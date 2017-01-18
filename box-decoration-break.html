@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>box-decoration-break</title>
+	<link rel="stylesheet" type="text/css" href="./default.css">
+</head>
+<body style="">
+	<h1>box-decoration-break</h1>
+	<p>突然想起来这个玩意儿在某个常用的查询网站上没有，所以特意补充一下吧</p>
+	<p>这玩意只对<code>inline</code>元素起作用，而且是<code>inline</code>元素具备<code>background、padding、border、border-image、box-shadow和clip</code>这些样式时，当<code>inline</code>盒模型被打断时有效果</p>
+	<p class="tips">元素被<code>float</code>或者<code>position:absolute/fixed</code>时<code>box-decoration-break</code>是不生效的。</p>
+	<span style="background-color: red;padding: 2px;border: solid 2px green;font-size: 20px;line-height: 40px">The box-decoration-break CSS property specifies how the background, padding, border, border-image, box-shadow, margin and clip of an element is applied when the box for the element is fragmented. Fragmentation occurs when an inline box wraps onto multiple lines, or when a block spans more than one column inside a column layout container, or spans a page break when printed. Each piece of the rendering for the element is called a fragment.</span>
+	<p>上面<code>box-decoration-break</code>值缺省</p>
+	<span style="background-color: red;padding: 2px;border: solid 2px green;-webkit-box-decoration-break: clone;font-size: 20px;line-height: 40px;">The box-decoration-break CSS property specifies how the background, padding, border, border-image, box-shadow, margin and clip of an element is applied when the box for the element is fragmented. Fragmentation occurs when an inline box wraps onto multiple lines, or when a block spans more than one column inside a column layout container, or spans a page break when printed. Each piece of the rendering for the element is called a fragment.</span>
+	<p>上面<code>box-decoration-break</code>值为<code>clone</code></p>
+	<span style="background-color: red;padding: 2px;border: solid 2px green;--weblty-box-decoration-break: slice;font-size: 20px;line-height: 40px;">The box-decoration-break CSS property specifies how the background, padding, border, border-image, box-shadow, margin and clip of an element is applied when the box for the element is fragmented. Fragmentation occurs when an inline box wraps onto multiple lines, or when a block spans more than one column inside a column layout container, or spans a page break when printed. Each piece of the rendering for the element is called a fragment.</span>
+	<p>上面<code>box-decoration-break</code>值为<code>slice</code></p>
+	<p>so，看出差别来没？想要好看点就用<code>box-decoration-break:clone</code>，而且这个样式只有FF兼容，webkit内核要变成<code>-webkit-box-decoration-break</code>，巨硬家浏览器完成不兼容</p>
+</body>
+</html>
