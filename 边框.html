@@ -26,7 +26,8 @@
 border-top-right-radius:5px;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;</pre>
-        <p>下面的几个圆角为了避免眼瞎所以加上了outline，而且效果可以直接看下面的框</p><p><code>border-radius:1em 2em</code>实际上是这样的：</p>
+        <p>下面的几个圆角为了避免眼瞎所以加上了outline，而且效果可以直接看下面的框</p>
+        <p><code>border-radius:1em 2em</code>实际上是这样的：</p>
         <pre style="border-radius: 1em 2em;outline: solid 2px #33be55;">border-top-left-radius:1em;
 border-top-right-radius:2em;
 border-bottom-left-radius:2em;
@@ -36,27 +37,36 @@ border-bottom-firht-radius:1em;</pre>
 border-top-right-radius:2em;
 border-bottom-left-radius:3em;
 border-bottom-right-radius:2em;</pre></p>
-<p>还有一种写法是<code>border-radius:length / length</code>，比如说<code>border-radius: 2em 1em 4em / 0.5em 3em</code>，实际是这样的：</p>
+    <p>还有一种写法是<code>border-radius:length / length</code>，比如说<code>border-radius: 2em 1em 4em / 0.5em 3em</code>，实际是这样的：</p>
     <pre style="border-radius: 2em 1em 4em / 0.5em 3em;outline: solid 2px #33be55;">border-top-left-radius: 2em 0.5em;
 border-top-right-radius: 1em 3em;
 border-bottom-left-radius: 1em 3em;
 border-bottom-right-radius: 4em 0.5em;</pre>
-<p>意思很明显，<code>/</code>后面的那个长度就是圆角的高度。<br/>当然如果把border-xx-radius:length四个都写上我是没啥意见的。<br/>
-当然，这个和<code>border</code>的缩略写法顺序是不一样的，<code>border</code>的顺序是上下，左右；上，左右，下。<br/>
-目前用途我只想到了bootstrap里的圆角矩形button</p>
-<h2>边框阴影</h2>
-<p>严格来说应该是矩形框阴影，用<code>box-shadow</code>实现</p>
-<pre>box-shadow:length length color</pre>
-<p>有意思的是<code>box-shadow</code>的值里面的<code>length</code>值只能是两个或者三个，而且如果颜色值没有写的话，在Chrome里缺省颜色是黑色</p>
-<pre style="box-shadow:1em 2em #33b5e5;outline: solid 2px #33be55;">
+    <p>意思很明显，<code>/</code>后面的那个长度就是圆角的高度。
+        <br/>当然如果把border-xx-radius:length四个都写上我是没啥意见的。
+        <br/> 当然，这个和
+        <code>border</code>的缩略写法顺序是不一样的，<code>border</code>的顺序是上下，左右；上，左右，下。
+        <br/> 目前用途我只想到了bootstrap里的圆角矩形button
+    </p>
+    <h2>边框阴影</h2>
+    <p>严格来说应该是矩形框阴影，用<code>box-shadow</code>实现。<br/>而且<code>box-shadow</code>没继承性。</p>
+    <pre>box-shadow:length（水平阴影位置） length（垂直阴影位置） length（模糊距离） length（阴影尺寸） color inset</pre>
+    <p>有意思的是<code>box-shadow</code>的值里面的<code>length</code>值最少要两个，多一个就多一项选项，而且如果颜色值没有写的话，在Chrome里缺省颜色是黑色。钱两个<code>length</code>值可以是负数</p>
+    <pre style="box-shadow:1em 2em #33b5e5;outline: solid 2px #33be55;">
 box-shadow:1em 2em #33b5e5
-</pre><br/><p>丑哭了，因为<code>length</code>只有两个值，没有阴影边缘模糊的数值，而且可以看到<code>box-shadow</code>不会挡住<code>boder</code>也不会挡住<code>outline</code>，更不会挡住后面的内容的，它的<code>z-index</code>应该很低，而且它还会超出本来该占据位置的边缘。<br/>如果只有一个<code>length</code>值的话，根本就不会有阴影的</p>
-<pre style="box-shadow:1em 2em 10px #33b5e5;outline: solid 2px #33be55;">
+</pre>
+    <br/>
+    <p>丑哭了，因为<code>length</code>只有两个值，没有阴影边缘模糊的数值，而且可以看到<code>box-shadow</code>不会挡住<code>boder</code>也不会挡住<code>outline</code>，更不会挡住后面的内容的，它的<code>z-index</code>应该很低，而且它还会超出本来该占据位置的边缘。
+        <br/>如果只有一个<code>length</code>值的话，根本就不会有阴影的</p>
+    <pre style="box-shadow: 1em 2em 10px #33b5e5;outline: solid 2px #33be55;">
 box-shadow:1em 2em 10px #33b5e5
-</pre><p>完整形态就是上面那个样子了</p><br/>
-<h2>图片边框</h2>
-<p>因为很丑而且我也没有好的示例而且这玩意兼容性有点爆炸，就不说了，没用，GG</p>
-<p>唉有点懒</p>
+</pre>
+    <p>第四个<code>length</code>值不写的话，默认阴影大小是多少我也不清楚啊。<br/>
+    而且如果第四个<code>length</code>值比较小或者不写的话，那么带了<code>inset</code>表现出来的样子就是上边和左边在内部的阴影</p>
+    <br/>
+    <h2>图片边框</h2>
+    <p>因为很丑而且我也没有好的示例而且这玩意兼容性有点爆炸，就不说了，没用，GG</p>
+    <p>唉有点懒</p>
 </body>
 
 </html>
