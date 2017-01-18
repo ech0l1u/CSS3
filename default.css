@@ -17,6 +17,11 @@ h1{
 }
 h2{
 	font-size: 25px;
+	font-weight: 700;
+}
+h3{
+	font-size: 20px;
+	font-weight: 500;
 }
 .tips{
 	font-weight: bold;
@@ -36,8 +41,11 @@ p{
 	content: '';
 	display: inline-block;
 	width: 2em;
-	
-	
+}
+h1:after{
+	content: '';
+	display: block;
+	height: 1.5em;
 }
 code{margin:0;
 	padding:0;
