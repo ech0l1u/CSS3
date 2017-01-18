@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>引用服务器字体</title>
+    <link rel="stylesheet" type="text/css" href="./default.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <style type="text/css">
+    	@import url('https://fonts.googleapis.com/css?family=Pacifico');
+    </style>
+</head>
+
+<body>
+    <h1>引用服务器字体</h1>
+    <p>服务器字体我也不知道怎么去描述，意思就是不是本地已经安装好的字体。以前会碰到因为网络原因导致字体渲染得跟屎一样的页面，后来才知道是因为字体没有加载，，
+        <br/>之前看CSS的时候不知道，原来引用服务器字体是CSS3才有特性，而且以前也不知道怎么去引用服务器字体。</p>
+    <h2>Google Fonts</h2>
+    <p>用Google Fonts需要考虑被墙的问题，我个人觉得建站的话，应该是服务器而不是用户去请求这个字体资源吧，不过没试过不知道。
+        <br/>Google Fonts有两种引用方法</p>
+    <h3>标准式</h3>
+    <p>首先，需要在<code>&#60;head></code>里添加引用</p>
+    <pre>&#60;link rel="stylesheet" type="text/css" href="url"></pre>
+    <p>然后就可以在CSS里直接引用了</p>
+    <pre>font-family:'';</pre>
+    <span style="font-family: 'Tangerine';font-size: 25px;">Just Like This</span>
+    <h3>嵌入式</h3>
+    <p>首先在CSS里添加引用，（我突然想到内联样式的话这样改怎么写啊）</p>
+    <pre>&#60;style>
+@import url('url');
+&#60;/style></pre>
+	<p>然后和标准式一样直接引用</p>
+	<span style="font-family: 'Pacifico';font-size: 25px;">Just Like This</span>
+	<h2>其他吃瓜服务器字体</h2>
+	<p>首先在CSS里自定义好字体名字和来源</p>
+	<pre>@font-face
+{
+font-family: Font_Name;
+src: url('xxxx.ttf'),
+src: url('xxxx.xxx');
+}</pre>
+	<p>当然你也可以顺便就把<code>font-weight</code>这些设置一并写到<code>@font-face{}</code>里头去。里面的src的url必须是字体文件来源，不止一个来源比如说有的不同浏览器要用的不一样的话，用逗号隔开。<br/>然后就可以直接引用了</p>
+	<p>最后说一下，国内用的多的好像是阿里的网络字体吧。</p>
+</body>
+
+</html>
