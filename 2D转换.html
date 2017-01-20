@@ -6,14 +6,13 @@
     <title>2D转换</title>
     <link rel="stylesheet" type="text/css" href="./default.css">
     <style type="text/css">
-    div#translate {
+    #translate {
         margin: 0;
         width: 150px;
         height: 150px;
         font-size: 50px;
         line-height: 50px;
         border: solid 2px #e2e2e2;
-        transform: translate(100px 100px);
     }
     
     .big {
@@ -37,10 +36,10 @@
     </style>
     <script type="text/javascript">
     	function get () {
-    		var x=document.getElementsById('translate');
+    		var x=document.getElementById('translate');
     		return[x];
     	}
-    	function translate () {
+    	function weiyi () {
     		get()[0].style.transform="translate(100px 100px)";
     	}
     	function matrix_translate () {
@@ -84,7 +83,7 @@
     <pre>transform: translate(坐标 坐标)</pre>
     <p>就是这样，如果是用<code>matrix</code>的话，就是</p><pre>transform: matrix(0 0 0 0 坐标 坐标)</pre><p>不信的话，按上面说的去算一下就知道了。</p>
     <div class="big"><div id="translate">假装这是一张图片。</div></div>
-    <button type="button" onclick="translate()">translate(100px 100px)</button>
+    <button type="button" onclick="weiyi()">translate(100px 100px)</button>
     <button type="button" onclick="matrix_translate()">matrix(0 0 0 0 150 150)</button>
 
 </body>
