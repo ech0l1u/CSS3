@@ -6,7 +6,10 @@
     <title>2D转换</title>
     <link rel="stylesheet" type="text/css" href="./default.css">
     <style type="text/css">
-    #translate {
+    #translate,
+    #scale,
+    #rotate,
+    #skew {
         margin: 0;
         width: 150px;
         height: 150px;
@@ -35,20 +38,58 @@
     }
     </style>
     <script type="text/javascript">
-    	function get () {
-    		var x=document.getElementById('translate');
-    		return[x];
-    	}
-    	function weiyi () {
-    		get()[0].style.transform="translate(100px 100px)";
-    	}
-    	function matrix_translate () {
-    		get()[0].style.transform="matrix(0 0 0 0 150 150)";
-    	}
+    function get() {
+        var x = document.getElementById('translate');
+        var y = document.getElementById('scale');
+        var z = document.getElementById('rotate');
+        var s = document.getElementById('skew');
+        return [x, y, z, s];
+    }
+
+    function weiyi() {
+        get()[0].style.transform = "translate(50px,50px)";
+    }
+
+    function matrix_translate() {
+        get()[0].style.transform = "matrix(1,0,0,1,100,100)";
+    }
+
+    function suofang() {
+        get()[1].style.transform = "scale(1.5,1.5)"
+    }
+
+    function matrix_scale() {
+        get()[1].style.transform = "matrix(1.7,0,0,0.8,0,0)";
+    }
+
+    function xuanzhuan() {
+        get()[2].style.transform = "rotate(135deg)";
+    }
+
+    function matrix_rotate() {
+        get()[2].style.transform = "matrix(0.5,-0.866,0.866,0.5,50,50)";
+    }
+
+
+    function lashen() {
+        get()[3].style.transform = "skew(30deg,45deg)";
+    }
+
+    function matrix_skew() {
+        get()[3].style.transform = "matrix(1,0.554309,0.487733,1,50,50)";
+    }
+
+    function recover() {
+        get()[0].style.transform = "translate(0px,0px)";
+        get()[1].style.transform = "scale(1,1)";
+        get()[2].style.transform = "rotate(0deg)";
+        get()[3].style.transform = "skew(0deg,0deg)";
+    }
     </script>
 </head>
 
 <body>
+	<p>写在最前面：<br/>本篇里的一些概念，比如说matrix的几个参数不一定就是绝对的，毕竟sinθ = -sin(2π - θ) = sin(π - θ)，cosθ = -cos(π - θ) = cos(2π - θ) 还有就是和旋转相关的，注意我说的是翻转还是偏转！！<br/>但是，我可以保证绝对正确的就是那个矩阵运算，，，</p>
     <h1>2D转换</h1>
     <p>CSS里的转换可以是移动、缩放、转动、拉长或拉伸，可以是2D或者3D的，这里主要说得是2D</p>
     <p>转换时一般是这么写的：</p>
@@ -57,7 +98,7 @@
 }</pre>
     <p>或者说这么写：</p>
     <pre>element{
-	transform: 转换方式(参数,参数,参数);
+	transform: 转换方式(参数,参数);
 	transform-origin: 参数 参数 参数;
 }</pre>
     <p><code>tranfrom-origin</code>的作用是设定原转换对象的转换原点坐标是0 0（如果没有<code>tranfrom-origin</code>的话就是中心点），三个参数的默认值是50% 50% 0，意思就是原对象的中心点的<code>z-index</code>值为0的那个点。当然参数值可以缺省。钱两个参数都是坐标，坐标是正负和左右上下的关系参考最简单的笛卡尔坐标系，不过把Y轴方向反过来。而且坐标除了下面说的<code>matrix</code>之外都是要带单位的。</p>
@@ -79,13 +120,50 @@
     <p>首先要说明的是，转化效果可以是单一的，也可以多种结合的</p>
     <hr/>
     <h2>移动</h2>
-    <p>移动的话，关键字是<code>translate(坐标 坐标)</code></p>
+    <p>移动的话，关键字是<code>transform:translate(坐标,坐标)</code></p>
     <pre>transform: translate(坐标 坐标)</pre>
-    <p>就是这样，如果是用<code>matrix</code>的话，就是</p><pre>transform: matrix(0 0 0 0 坐标 坐标)</pre><p>不信的话，按上面说的去算一下就知道了。</p>
-    <div class="big"><div id="translate">假装这是一张图片。</div></div>
-    <button type="button" onclick="weiyi()">translate(100px 100px)</button>
-    <button type="button" onclick="matrix_translate()">matrix(0 0 0 0 150 150)</button>
-
+    <p>就是这样，如果是用<code>matrix</code>的话，就是<code>transform: matrix(1 0 0 1 坐标 坐标)</code>
+        <br/>不信的话，按上面说的去算一下就知道了。</p>
+    <p>比方说如果是<code>transform: matrix(0 0 0 0 坐标 坐标)</code>的话。矩阵计算结果是所有的坐标都跑<code>坐标 坐标</code>这个点上去了</p>
+    <div class="big">
+        <div id="translate">假装这是一张图片。</div>
+    </div>
+    <button type="button" onclick="weiyi()"><code>translate</code>(50px 50px)</button>
+    <button type="button" onclick="matrix_translate()"><code>matrix(1 0 0 1 100 100)</code></button>
+    <button type="button" onclick="recover()"><code>recover</code></button>
+    <h2>缩放</h2>
+    <p>缩放的话，关键字是<code>transform:scale(横向倍数,纵向倍数)</code></p>
+    <p>如果是用<code>matrix</code>的话，就是<code>transform: matrix(横向倍数 <del>关我屁事但最好是0</del> <del>关我屁事但最好是0</del> 纵向倍数 <del>我负责横向位移</del> <del>我负责纵向位移</del>)</code></p>
+    <div class="big">
+        <div id="scale">又假装这是一张图片</div>
+    </div>
+    <button type="button" onclick="suofang()"><code>scale(1.5,1.5)</code></button>
+    <button type="button" onclick="matrix_scale()"><code>matrix(1.7,0,0,0.8,0,0)</code></button>
+    <button type="button" onclick="recover()"><code>recover</code></button>
+    <h2>旋转</h2>
+    <p>旋转的关键字是<code>transform:rotate(xxdeg)</code>，那个deg是degree的缩写，方向是逆时针方向，简单的很</p>
+    <p>如果是<code>matrix</code>的话，就应该是</p><pre>transform:matrix(cosθ*横向拉升倍数,sinθ,-sinθ,cosθ*纵向拉伸倍数,横向位移,纵向位移)</pre>
+    <div class="big">
+        <div id="rotate">还假装这是一张图片</div>
+    </div>
+    <button type="button" onclick="xuanzhuan()">rotate(135deg)</button>
+    <button type="button" onclick="matrix_rotate()">matrix(0.5,-0.866,0.866,0.5,50,50)</button>
+    <button type="button" onclick="recover()">recover</button>
+    <h2>拉伸</h2>
+    <p>其实就是旋转缩放的意思，嗯。拉伸的关键字是<code>transform:skew(Y轴偏转角度,X轴偏转角度)</code>
+        <br/>坑爹的是X轴偏转角度是顺时针，Y轴偏转方向是逆时针。<br/> 然后，到这就能知道<code>matrix</code>几个参数的，真正的定义了。</p>
+    <pre>transfrom:matrix( , , , ,横向位移,纵向位移)</pre>
+    <p>我大概花了一整天的时间思考，终于有了点眉目。<code>skew</code>可以看作两个拉伸倍数不一样的旋转。<br/>首先把对象旋转θ，在上面已经知道了</p>
+    <pre>transform:matrix(cosθ*横向拉升倍数,-sinθ,sinθ,cosθ*纵向拉伸倍数,横向位移,纵向位移)</pre>
+    <p>再展开一下，拉伸倍数不是1的话，那么就会出现X轴和Y轴旋转角度不一样的问题，而且第二个和第三个参数的数值意义就发生变化了，从sin变成了tan，而且θ也会分为X轴的θ角和Y轴的θ角</p>
+    <p>推理过程我就不算了，毕竟<del>我对不起我线代老师啊！</del>。总之，<code>skew</code>就是在<code>transform:matrix(cosθ*横向拉升倍数,sinθ,-sinθ,cosθ*纵向拉伸倍数,横向位移,纵向位移)</code>的基础上发生两个轴缩放不一致的情况</p>
+    <div class="big"><div id="skew">这真的是一张图片啊</div></div>
+    <button type="button" onclick="lashen()">skew(30deg,45deg)</button>
+    <button type="button" onclick="matrix_skew()">matrix(1,0.554309,0.487733,1,50,50)</button>
+    <button type="button" onclick="recover()">recover</button>
+    <h2>桥豆麻袋</h2>
+    <p>不要妄想把<code>translate, scale, rotate</code>混一起写还能都生效，经过试验发现，这几个玩意写在一起，只有<code>rotate</code>有效，当然<code>skew</code>我没有尝试。如果想要多个效果话，还是老老实实<code>transform:matrix()</code>吧</p>
+    <p>当然，<code>transform:matrix()</code>的功能不止上面说的那样，有些高级变换只能用<code>transform:matrix()</code>了，高级到我这种线代渣想都想不出来的变换。</p>
 </body>
 
 </html>
