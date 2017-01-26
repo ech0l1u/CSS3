@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3D转换</title>
+    <link rel="stylesheet" type="text/css" href="./default.css">
+    <style type="text/css">
+    #stage{
+    	position: absolute;
+    	perspective: 1000px;
+        left: calc(50vw - 300px);
+        height: 400px;
+        width: 600px;
+
+    }
+    /* #guntong和*stage可以去掉一个的，不过我只是想加4一个白色背景方便分辨*/
+    /* #guntong和*stage不要去掉一个，毕竟perspective有需要。*/
+    #guntong {
+    	position: absolute;
+    	height: 400px;
+    	width: 600px;
+        perspective-origin: center;
+        backface-visibility: visible;
+        transform-style: preserve-3d;
+        
+        
+        
+    }
+    
+    .cube {
+        position: absolute;
+        left: calc(50% - 100px);
+        top: calc(50% - 100px);
+        height: 200px;
+        width: 200px;
+        backface-visibility: visible;
+        
+        
+
+    }
+    </style>
+</head>
+
+<body>
+    <p>写在最前面：说实话2D的<code>transform:matrix()</code>已经让我很烦了，所以3D转换打死我都不想搞这个了，毕竟参数从6个变成了16个。
+        <del>我可是只上过一节线性代数的人</del>
+    </p>
+    <h1>3D转换</h1>
+    <h2><code>perspective</code></h2>
+    <p>前面说过了两个转化属性，一个是转换鼻祖<code>transform</code>，一个是设定2D转换原点的<code>transfrom-origin</code>。辣么，<code>perspective</code>是啥？其实这是一个设定3D转换猛烈程度的属性。</p>
+    <pre>perspective:数字px</pre>
+    <p>其实带不带单位或者带什么单位怎么规定的我也不知道，不过把px当单位是肯定不会错的，有一个非常要注意的地方就是：</p>
+    <p class="tips"><code>perspective</code>不是只针对被转换对象，它也可以是被转换对象的父元素的属性。不过建议这个属性给父元素</p>
+    <p>至于后面的那个数值，只能是正数，而且别太大。因为太大，不写<code>perspective</code>属性，或者是0都是效果渺茫的，如果是负数则是完全失效。</p>
+    <p>我不想搞个demo出来了</p>
+    <h2><code>-webkit-perspective-origin</code></h2>
+    <p>这个内容我自己没测试，完全出于道听途说</p>，因为<code>perspective-origin</code>所有浏览器都不兼容，所以Chrome和Safari就有一个<code>-webkit-perspective-origin</code>。作用，个人理解就是规定透视点的位置。它没有继承性，默认值50% 50%。
+    <pre>-webkit-perspective-origin:参数 参数</pre>
+    <p>参数可以屎left right top center tio bottom xxpx %这些</p>
+    <p>没有Z轴上的参数，不像<code>transfrom-origin</code>会有一个存在感稀薄的Z轴参数。<span class="tips"><code>-webkit-perspective-origin</code>必须和<code>perspective</code>一起用，而且因为是规定透视点，所以效果只会在子元素上表现出来。</span></p>
+    <h2><code>transform-style: preserve-3d</code></h2>
+    <p>反正记住这个东西的写法就是这样就行。<code>transform-style: preserve-3d</code>作用在被转换对象的父元素上面，规定子元素和子元素的子元素嵌套时都会按照写好的转换而转换</p>
+    <p>继承性这个东西，感觉CSS里除了和文本相关的东西之外，就都没继承性了</p>
+    <h2><code>backface-visibility</code></h2>
+    <p>在3D里面，东西是有正面和背面的，所以<code>backface-visibility</code>就是用来规定对象的背面是否可见的。</p><pre>backface-visibility : visible|hidden</pre>
+    <p>看描述也应该看出来了，这个是针对转换对象的</p>
+    <hr/>
+    <p style="text-align: center">这里是华丽的分割线</p>
+    <hr/>
+    <h2>3D里的<code>translateZ rotateX|Y|Z</code></h2>
+    <p>首先理解CSS里3D的三个轴，XYZ。以屏幕为标准，X轴从左到右边，Y轴从上到下，Z轴从屏幕里面到屏幕外面。</p>
+    <p>OK很好理解，那么讲重点，那就是<span><code>translateZ</code>的Z轴是以它自己为标准的，不是垂直屏幕的。<code>rotateX|Y|Z</code>后面带的参数，意思是绕X|Y|Z轴旋转，至于顺时针还是逆时针鬼知道啊</span></p>
+    <div id="stage"><div id="guntong">
+        <div class="cube" style="background-color: red;transform: rotate(0deg) translateZ(210px);"></div>
+        <div class="cube" style="background-color: green;transform: rotateY(90deg) translateZ(210px);"></div>
+        <div class="cube" style="background-color: blue;transform: rotateY(180deg) translateZ(210px);"></div>
+        <div class="cube" style="background-color: yellow;transform: rotateY(270deg) translateZ(210px);"></div>
+    </div></div>
+    <p>我不想写demo了</p>
+</body>
+
+</html>
