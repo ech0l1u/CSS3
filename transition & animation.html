@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>transition & ainimation</title>
+    <link rel="stylesheet" type="text/css" href="./default.css">
+    <style type="text/css">
+    .transition {
+        height: 150px;
+        width: 450px;
+        line-height: 150px;
+        text-align: center;
+        background-color: orange;
+    }
+    
+    .transition:hover {
+        width: 700px;
+        background-color: purple;
+        transform: scale(1, 1.2);
+    }
+    
+    @keyframes move {
+        0% {
+            background-color: red;
+            left: 0px;
+            top: 0px;
+        }
+        25% {
+            background-color: orange;
+            left: 0px;
+            top: 300px;
+        }
+        50% {
+            background-color: yellow;
+            top: 300px;
+            left: calc(100% - 100px);
+        }
+        75% {
+            background-color: green;
+            top: 0px;
+            left: calc(100% - 100px);
+        }
+        100% {
+            background-color: red;
+            top: 0px;
+            left: 0px;
+        }
+    }
+    
+    #ani-container {
+        height: 400px;
+        
+    }
+    
+    #action {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        animation: move 4s infinite;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>过渡效果</h1>
+    <p></p>
+    <pre>transition:要过渡效果的属性 过渡时间 速度效果 启动时间延迟 </pre>
+    <div class="transition" style="transition: all 1s">transition: all 1s</div>
+    <div class="transition" style="transition: width 2s">transition: width 2s</div>
+    <div class="transition" style="transition: background-color 3s">transition: background-color 3s</div>
+    <div class="transition" style="transition-property: width,transform;transition-duration: 3s;">transition-property: width,transform;transition-duration: 3s</div>
+    <p>其实上面最后一个div里说明了一个问题，那就是如果要过渡效果的属性不止一个的话，就别用<code>transition:</code>这种缩写了，but，那个要过渡效果的属性的值可以用all啊。</p>
+    <hr/>
+    <h1>animation</h1>
+    <p>首先把animation定义好</p>
+    <pre>@keyframes 动画名字
+{	
+    from {css属性名:值;}
+    to {css属性名:值;}
+}
+	</pre>
+    <pre>@keyframes 动画名字
+{	
+    0% {css属性名:值;}
+    N% {css属性名:值;}
+    N% {css属性名:值;}
+    N% {css属性名:值;}
+    100% {css属性名:值;}
+}
+	</pre>
+    <p>其实我不知道那个0%和100%是不是必要的，，，</p>
+    <p>然后调用那个动画就行</p>
+    <pre>animation: 动画名 动画持续时间 动画速度曲线 动画启动延迟 动画播放次数 是不是轮流反向播放</pre>
+    <div id="ani-container">
+        <div id="action"></div>
+        <p style="text-align: center;line-height: 184px">那个，和位置有关的动画，就是position的变化的话，能缺省的位置不要缺省，不然浏览器的效果就不是移动而是blink了</p>
+    </div>
+</body>
+
+</html>
