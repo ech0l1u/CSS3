@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>flexible box</title>
+    <link rel="stylesheet" type="text/css" href="./default.css">
+    <style type="text/css">
+    .justify-content {
+        display: flex;
+        background-color: purple;
+        width: 100%;
+        height: 104px;
+    }
+    
+    .align-items {
+        display: flex;
+        background-color: purple;
+        width: 606px;
+        height: 304px;
+    }
+    
+    #sample1 {
+        width: 100px;
+        height: 100px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    
+    #sample2 {
+        width: 200px;
+        height: 100px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    
+    #sample3 {
+        width: 300px;
+        height: 100px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    
+    #sample1-1 {
+        width: 200px;
+        height: 100px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    
+    #sample1-2 {
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    
+    #sample1-3 {
+        width: 200px;
+        height: 300px;
+        background-color: orange;
+        border: solid 2px purple;
+    }
+    </style>
+</head>
+
+<body>
+    <p>少说废话</p>
+    <p>我还是想说废话</p>
+    <p>某天我做了一个梦，梦到自己在被面试，问到float的问题了
+        <br/> 问：父框塌陷是为啥
+        <br/> 答：因为float的元素高度比父框高了
+        <br/> 问：怎么处理？ 答：父框的overflow设置成auto……
+    </p>
+    <p>其实大家都是布局，能用好用会用就行了</p>
+    <h1>Flex box</h1>
+    <p>一般都是把div当容器，然后</p><pre>.container{
+	display:flex;
+}</pre>
+    <p>当然，也可以弄成<code>inline-flex;</code>的</p>
+    <p>如果设为flex，那float，clear，vertical-aligin这几个属性全部GG</p>
+    <hr/>
+    <p>设置成flex的元素下面简称container，container的<span class="tips">子元素</span>，下面简称item</p>
+    <p>容器默认存在两根轴：主轴（main axis）和垂直主轴的交叉轴（cross axis）。主轴的开始位置叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
+    <h2>property of container</h2>
+    <pre>flex-direction:row|row-revserve|column|column-reserve;</pre>
+    <p>规定主轴方向</p>
+    <ul>
+        <li><code>row</code></li>
+        <li><code>row-reserve</code></li>
+        <li><code>column</code></li>
+        <li><code>column</code></li>
+    </ul>
+    <ul>
+        <li class="right">默认值，横向从左到右</li>
+        <li class="right">横向从右到左</li>
+        <li class="right">纵向从上到下</li>
+        <li class="right">纵向从下到上</li>
+    </ul>
+    <pre>flex-wrap:nowrap|wrap|wrap-reverse;</pre>
+    <p>规定item太多一根asix排不下然后把main asix打折了怎么换行</p>
+    <ul>
+        <li><code>nowrap</code></li>
+        <li><code>wrap</code></li>
+        <li><code>wrap-reverse</code></li>
+    </ul>
+    <ul>
+        <li class="right">不换行（我在想要不要给父框加个<code>overflow:xxx</code>什么的</li>
+        <li class="right">按照常识换行，前一行在上</li>
+        <li class="right">换行，不过前一行在下面</li>
+    </ul>
+    <pre>flex-flow::row|row-revserve|column|column-reserve nowrap|wrap|wrap-reverse;</pre>
+    <p><code>flwx-flow</code>就是<code>flex-direction & flex-wrap</code>的缩写</p>
+    <pre>justify-content:flex-start|flex-end|center|space-between|space-around;</pre>
+    <p>规定items在main asix方向的对齐方式，，弄个demo吧</p>
+    <div class="justify-content" style="justify-content:flex-start;">
+        <div id="sample1"></div>
+        <div id="sample2"></div>
+        <div id="sample3"></div>
+    </div>
+    <code>justify-content:flex-start</code> ----默认值
+    <div class="justify-content" style="justify-content:flex-end;">
+        <div id="sample1"></div>
+        <div id="sample2"></div>
+        <div id="sample3"></div>
+    </div>
+    <code>justify-content:flex-end</code>
+    <div class="justify-content" style="justify-content:center;">
+        <div id="sample1"></div>
+        <div id="sample2"></div>
+        <div id="sample3"></div>
+    </div>
+    <code>justify-content:center</code>
+    <div class="justify-content" style="justify-content:space-between;">
+        <div id="sample1"></div>
+        <div id="sample2"></div>
+        <div id="sample3"></div>
+    </div>
+    <code>justify-content:space-between</code>
+    <div class="justify-content" style="justify-content:space-around;">
+        <div id="sample1"></div>
+        <div id="sample2"></div>
+        <div id="sample3"></div>
+    </div>
+    <code>justify-content:space-around</code>
+    <p>注意一下那个<code>justify-content:space-between</code>和<code>justify-content:space-around</code>的差别</p>
+    <pre>align-items:flex-start|flex-end|center|baseline|stretch;</pre>
+    <p>规定在cross asix方向怎么对齐，我还是弄个demo吧。 </p>
+    <div class="align-items" style="align-items:flex-start;">
+        <div id="sample1-1"></div>
+        <div id="sample1-2"></div>
+        <div id="sample1-3"></div>
+    </div>
+    <code>align-items:flex-start;</code>
+    <div class="align-items" style="align-items:flex-end;">
+        <div id="sample1-1"></div>
+        <div id="sample1-2"></div>
+        <div id="sample1-3"></div>
+    </div>
+    <code>align-items:flex-end;</code>
+    <div class="align-items" style="align-items:center;">
+        <div id="sample1-1"></div>
+        <div id="sample1-2"></div>
+        <div id="sample1-3"></div>
+    </div>
+    <code>align-items:center;</code>
+    <div class="align-items" style="align-items:baseline;">
+        <div id="sample1-1"><span style="font-size: 16px;">text</span></div>
+        <div id="sample1-2"><span style="font-size: 36px;">text</span></div>
+        <div id="sample1-3"><span style="font-size: 56px;">text</span></div>
+    </div>
+    <code>align-items:baseline;</code>
+    <div class="align-items" style="align-items:stretch;">
+        <code>align-items:stretch;</code>----默认值
+        <hr/> 当item没有被限定height时会拉满
+        <br/> main asix如果不止一行的话，不知道时拉满一行还是拉满整个container啊，我觉得是拉满一行，不过不止一行时，就有另外一个属性负责了
+        <hr/>
+        <p>这下就有意思了，好像还可以继续研究一下的样子</p>
+        <hr/>
+        <p>比如说里面的block元素会空一行，但是换行符不会的样子</p>
+        <hr/>长这么大第一次见到&#60;hr/>是竖着长的
+    </div>
+    <pre>align-content: flex-start|flex-end|center|space-between|space-around|stretch;</pre>
+    <p>这个属性只有当主轴方向的items一行挤不下时才生效，其实就是当不止一行时，把每一行当作一个item，然后把cross asix的方向当main asix的方向排版</p>
+    <ul>
+        <li><code>flex-start</code></code>
+        </li>
+        <li><code>flex-end</code></li>
+        <li><code>center</code> </li>
+        <li><code>space-between</code></li>
+        <li><code>space-around</code></li>
+        <li><code>stretch</code></li>
+    </ul>
+    <ul>
+        <li class="right">参考<code>justify-content:flex-start</li>
+    	<li class="right">参考<code>justify-content:flex-end</li>
+    	<li class="right">参考<code>justify-content:center</li>
+    	<li class="right">参考<code>justify-content:space-between</li>
+    	<li class="right">参考<code>justify-content:space-around</li>
+    	<li class="right">默认值，参考<code>align-items:stretch</li>
+    </ul>
+    <h2>property of items</h2>
+    <pre>oder:整数;</pre>
+    <p>定义item的排列顺序。数值越小，排列越靠前，默认为0。</p>
+    <pre>flex-grow:数字;</pre>
+    <p>看到gorw就应该知道，这是用来控制单个item放大的，默认值为0，不放大。意思就是说如果有剩余空间，而且不为0，就放大。</p>
+    <div class="justify-content" style="justify-content: space-around;">
+    	<div id="sample1">大家其实都是同一个div，不信你按F12看看ID</div>
+    	<div id="sample1" style="flex-grow: 1">flex-grow: 1</div>
+    	<div id="sample1" style="flex-grow: 1.5">flex-grow: 1.5</div>
+    </div>
+    <div class="align-items" style="align-items: flex-start;">
+    	<div id="sample1">这个每没有说<code>flex-grow</code>所以是默认值0</div>
+            <div id="sample1" style="flex-grow: 1">flex-grow: 1</div>
+            <div id="sample1" style="flex-grow: 1.5">flex-grow: 1.5</div>
+        </div>
+    <p>其实应该看出来了，放大的其实是main asix方向的长度，至于剩余空间这个说法，就是剩余空间的意思</p>
+    <pre>flex-shrink:数字;</pre>
+    <p>其实就是<code>flex-grow</code>反过来，当空间不足时用的。
+        <br/>我懒得造空间不足的demo了</p>
+    <pre>flex-basis:长度|auto;</pre>
+    <p>用来在<code>flex-grow|shrink</code>生效前来规定item要在main asix上占多少空间，再判断空间是剩余还是不足。
+        <br/>auto是默认值，即原大小，当然那个长度说的是主轴方向的长度</p>
+    <pre>flex:none|[ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]</pre>
+    <p>就是<code>flex-basis, flex-grow, flex-shrink</code>三个属性的缩写。
+        <br/>有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)</p>
+    <pre>align-self:auto|flex-start|flex-end|center|baseline|stretch;</pre>
+    <p>一个针对单个item用来覆盖container的<code>align-items</code>属性。auto即继承容器，当然，容器没有<code>align-items</code>属性的话，当然是继承默认值<code>stretch</code>啊</p>
+
+    <hr/>
+    <p>其实布局的，能布好局的就是好用法，不管是table，或者说盒模型，或者说像bootstrap那样，不过感谢bootstrap，让我知道了其实container的item也能当container。</p>
+
+</body>
+
+</html>
