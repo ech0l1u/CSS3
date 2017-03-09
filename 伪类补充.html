@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>伪类补充</title>
+    <link rel="stylesheet" href="./default.css">
+    <style type="text/css">
+    input[type='checkbox']:checked ~ .ckspan {
+        color: red;
+    }
+    
+    input[type='radio']:checked ~ .radiospan {
+        color: red;
+    }
+	#target1,
+	#target2,
+	#target3{
+		display: none;
+		width: 200px;
+		text-align: center;
+	}
+	#target1:target,
+	#target2:target,
+	#target3:target{
+		display: block;
+	}
+    </style>
+</head>
+
+<body>
+    <h2>from的伪类</h2>
+    <pre>:enabled{
+	property:value;
+}
+:disabled{
+	property:value;
+}
+:checked{
+	property:value;
+}</pre>
+    <p>主要是针对表单元素的，比如说<code>type='text'</code>等就有disabled和enabled两种，<code>type="checkbox"</code>或者<code>type="radio"</code>就有checked伪类.
+        <form>
+            <input type="checkbox" name=""><span class="ckspan">checkbox</span>
+        </form>
+        <form>
+            <input type="radio" name="a"><span class="radiospan">radio</span>
+            <input type="radio" name="a">
+        </form>
+    <p>至于那个<code>:disable</code>和<code>:enable</code>就算了不管了</p>
+    <h2><code>:nth</code>选择器</h2> 这个，对多项目列表或者<code>div</code>省了不少写class名字的功夫。有一点要注意的别掉沟里去的就是<code>element:xxx</code>这里面的element是子元素，不是父元素级别的。毕竟CSS里选择器是啥就是选择啥，基本不会跨过dom结构去选择。
+    <pre>:first-child
+:last-child
+:nth-child()
+:nth-last-child()
+:nth-of-type()
+:nth-last-of-type()
+:first-of-type
+:last-of-type
+:only-child
+:only-of-type
+:empty</pre>
+    <p><code>:first-child</code>和<code>:last-child</code></br>太简单不说明</p>
+    <p><code>:nth-child()</code></br>用来选择一个或者多个子元素，括号里的内容是由正整数、n、+、-组成的（n从0开始取值）。
+    <br/>比如说：</p>
+    <pre>:nth-child(2) 选择第2个子元素
+:nth-child(2n) 选择第2、4、6、8、10……个子元素
+:nth-child(2n-1) 选择第1、3、5、7、9……个子元素
+:nth-child(n+3) 选择第3、4、5、6、7……个子元素
+:nth-child(3n+1) 选择第2、5、8、11……个子元素</pre>
+    <p>总之，就是里面带n的，就是n从0开始算的</p>
+    <p><code>:nth-last-child()</code></br>和<code>:nth-child()</code>一样，不过是从最后一个子元素数起</p>
+    <p><code>:nth-of-type()</code></br>这个里面没有child这个词，说明选择的不是子元素。
+    <br/>但是它的用法和<code>:nth-child()</code>是一样的，不同的是，<code>element:nth-of-type()</code>选择的同element的兄弟元素</p>
+    <p><code>:nth-last-of-type()</code></br>这个就不用说明了吧，，</p>
+    <p><code>:first-of-type</code>& <code>:last-of-type</code></br> 看到first，last，type这三个词，不用说明了吧</p>
+    <p><code>:only-child</code>和<code>:only-of-type</code> </br><code>element::only-child</code>选择的是element是它父元素的唯一一个子元素时选择了这个元素。</br><code>element:only-of-type</code>选择的是element的父元素可能不止一个子元素但是element这种只有一个的元素（有点绕）</p>
+    <p><code>:empty</code><br/>这个就是选择里面P都没有的子元素。<del>P都没有的元素为啥还要写出来啊</del></p>
+    <h2>否定选择器</h2>
+    <code>element:not[条件]{}</code><br/>把所有element都选定但是不选符合条件的那个。
+    <h2><code>:target</code>伪类</h2>
+	逛stackoverflow看到的一个用法，看到的例子需要用<code>a标签配合</code><br/>
+	选择的是被锚指向时的某个标签<br/>
+	<a href="#target1">show target 1</a> | <a href="#target2">show target 2</a> | <a href="#target3">show target 3</a><br/>
+	<div id ="target1">TARGET 1</div>
+	<div id="target2">TARGET 2</div>
+	<div id="target3">TARGET 3</div>
+
+
+</body>
+
+</html>
